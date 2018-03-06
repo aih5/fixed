@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fixed</title>
+    <style>
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+            height: 100px;
+            line-height: 40px;
+            color: #333;
+            font-size: 20px;
+            width: 60%;
+        }
+
+        select {
+            height: 30px;
+            font-size: 20px;
+            outline: none;
+            border: 1px solid #333;
+            width: 100%;
+        }
+
+        .container {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 100, 100, .8);
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(100, 100, 255, .8);
+        }
+
+        .g-absolute {
+            position: absolute;
+            z-index: 10;
+        }
+
+        .g-flex {
+            display: flex;
+            z-index: 10;
+        }
+
+        .g-opacity {
+            opacity: .5;
+        }
+
+        .g-transform {
+            transform: translate3d(0, 0, 0);
+        }
+
+        .g-blend {
+            mix-blend-mode: screen;
+        }
+
+        .g-filter {
+            filter: blur(5px);
+        }
+
+        .g-perspective {
+            perspective: 1000px;
+        }
+
+        .g-isolation {
+            isolation: isolate;
+        }
+
+        .g-fixed {
+            position: fixed;
+        }
+
+        .g-willChange {
+            will-change: transform;
+        }
+
+        .g-scrolling {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .g-backface {
+            backface-visibility: hidden;
+        }
+
+        .g-preserve3d {
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="fixed"></div>
+    </div>
+
+    <h1 class="title">触发父元素生成层叠上下文的方式:
+        <select id="select">
+            <option value="g-empty">none</option>
+            <option value="g-absolute">z-index 值不为 "auto"的 绝对/相对定位</option>
+            <option value="g-flex">一个 z-index 值不为 "auto"的 flex 项目 (flex item)</option>
+            <option value="g-opacity">opacity 属性值小于 1 的元素</option>
+            <option value="g-transform">transform 属性值不为 "none"的元素</option>
+            <option value="g-blend">mix-blend-mode 属性值不为 "normal"的元素</option>
+            <option value="g-filter">filter值不为“none”的元素</option>
+            <option value="g-perspective">perspective值不为“none”的元素</option>
+            <option value="g-isolation">isolation 属性被设置为 "isolate"的元素</option>
+            <option value="g-fixed">position: fixed</option>
+            <option value="g-willChange">在 will-change 中指定了任意 CSS 属性</option>
+            <option value="g-scrolling">-webkit-overflow-scrolling 属性被设置 "touch"的元素</option>
+            <option value="g-preserve3d">设置了 transform-style: preserve-3d 的元素</option>
+        </select>
+    </h1>
+    <script src="./jquery.min.js"></script>
+    <script>
+        (function () {
+            let old = "";
+            let dom = $(".container");
+
+            $('#select').on("change", function (e) {
+                let current = $(this).val();
+                dom.removeClass(old).addClass(current);
+                old = current;
+            });
+        })();
+    </script>
+</body>
+
+</html>
